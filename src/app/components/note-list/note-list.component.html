@@ -1,0 +1,33 @@
+<div class="p-6">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-semibold text-gray-800">Recent</h1>
+        <button (click)="onAddNote()"
+                class="flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>
+            Add item
+        </button>
+    </div>
+
+    <!-- Notes Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        @for (note of notes; track note.id) {
+            <app-note-card
+                [note]="note"
+                [categoryColor]="getCategoryColor(note.category)"
+                (editNote)="onEditNote($event)"
+                (deleteNote)="onDeleteNote($event)">
+            </app-note-card>
+        } @empty {
+            <div class="col-span-full flex flex-col items-center justify-center py-12 text-gray-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                <p class="text-lg mb-2">No notes yet</p>
+                <p class="text-sm">Click the "Add item" button to create your first note</p>
+            </div>
+        }
+    </div>
+</div>
